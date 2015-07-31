@@ -28,5 +28,4 @@ dependencies {
     // choose the discovery and outlook services
     compile 'com.microsoft.services:discovery-services:0.13.0'
     compile 'com.microsoft.services:outlook-services:0.13.0'
-    compile files('E:/Android/O365-Android-Connect/libs/adal-1.1.7.jar')
 }

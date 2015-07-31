@@ -168,8 +168,11 @@ public class AuthenticationManager {
      */
     private void authenticateSilent(final AuthenticationCallback<AuthenticationResult> authenticationCallback) {
 
-        UserIdentifier userIdentifier = new UserIdentifier(getUserId(), UserIdentifier.UserIdentifierType.OptionalDisplayableId);
-        String[] scopes = {""};
+        UserIdentifier userIdentifier = new UserIdentifier(
+                getUserId()
+                ,UserIdentifier.UserIdentifierType.RequiredDisplayableId);
+
+        String[] scopes = {"https://outlook.office.com/Mail.ReadWrite"};
         getAuthenticationContext().acquireTokenSilent(
                 scopes,
                 Constants.CLIENT_ID,
@@ -206,9 +209,8 @@ public class AuthenticationManager {
      * @param authenticationCallback The callback to notify when the processing is finished.
      */
     private void authenticatePrompt(final AuthenticationCallback<AuthenticationResult> authenticationCallback) {
-        String[] scopes = {""};
+        String[] scopes = {"https://outlook.office.com/Mail.ReadWrite"};
         String[] additionalScopes = {""};
-        UserIdentifier userIdentifier = new UserIdentifier(getUserId(), UserIdentifier.UserIdentifierType.OptionalDisplayableId);
 
         getAuthenticationContext().acquireToken(
                 this.mContextActivity,
@@ -216,7 +218,7 @@ public class AuthenticationManager {
                 additionalScopes,
                 Constants.CLIENT_ID,
                 Constants.REDIRECT_URI,
-                userIdentifier,
+                PromptBehavior.Always,
                 new AuthenticationCallback<AuthenticationResult>() {
                     @Override
                     public void onSuccess(final AuthenticationResult authenticationResult) {
